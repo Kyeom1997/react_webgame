@@ -19,7 +19,7 @@
 
 <br>
 
-리액트는 기본적으로 자바스크립트로 이루어져 있기 때문에, js 파일로 생성한다. 여기서 리액트를 자바스크립트 파일로 만들어 주기 위해서 `웹팩(webpack)`이란 것을 사용한다.
+리액트는 기본적으로 자바스크립트로 이루어져 있기 때문에, js 파일로 생성한다. 여기서 쪼개진 자바스크립트를 하나의 파일로 만들어 주기 위해서 `웹팩(webpack)`이란 것을 사용한다.
 <br><br>
 
 ```html
@@ -80,3 +80,81 @@
   </body>
 </html>
 ```
+
+<br>
+
+### 1-3 HTML 속성과 상태(state)
+
+<br>
+리액트에서 Component는 기본적으로 Root가 필요하다. 또한, 컴포넌트에서 바뀔 여지가 있는 부분을 상태, 즉 State라고 한다. 예를 들어, 사전에 만들어진 Like 버튼을 클릭했을 때 버튼의 텍스트가 Liked로 바뀐다면 이 텍스트가 State라고 할 수 있다. 
+<br><br>
+
+```js
+constructor(props) {
+    super(props);
+    this.state = {
+        liked: false,
+    };
+}
+```
+
+<br>
+state는 constructor의 this.state에 넣어준다. 
+<br><br>
+
+```js
+return e(
+  "button",
+  {
+    onClick: () => {
+      this.setState({ liked: true });
+    },
+    type: "submit",
+  },
+  this.state.liked === true ? "Liked" : "Like"
+);
+```
+
+<br>
+여기서 리액트의 속성은 camel case로 작성해 준다. (onclick -> onClick)
+<br><br>
+
+### 1-4 JSX와 바벨(babel)
+
+<br>
+리액트 개발자들은 좋지 않은 가독성 때문에 Tag를 사용해 더 가독성이 좋은 코드로 발전시켰다. 
+<br><br>
+
+```js
+return e(
+  "button",
+  {
+    onClick: () => {
+      this.setState({ liked: true });
+    },
+    type: "submit",
+  },
+  this.state.liked === true ? "Liked" : "Like"
+);
+
+ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+```
+
+<br>
+
+```js
+return (
+  <button
+    type="submit"
+    onClick={() => {
+      this.setState({ liked: true });
+    }}
+  >
+    Like
+  </button>
+);
+
+ReactDOM.render(<LikeButton />, document.querySelector("#root"));
+```
+
+<br> 이런식으로 보다 간편하고 가독성이 좋은 코드를 작성할 수 있다.
