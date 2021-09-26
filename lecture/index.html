@@ -8,25 +8,19 @@
 <body>
     <div id="root"></div> <!--결과 : <div id="root"><button>Like</button></div>-->
     <script type="text/babel">
-        class LikeButton extends React.Component {
+        class GuGudan extends React.Component {
             constructor(props) {
                 super(props);
-                this.state = {
-                    liked: false,
-                };
             }
 
             render() {
-                return <button type="submit" onClick={() => { this.setState({ liked: true})}}>
-                    {this.state.liked === true ? 'Liked' : "Like"}
-                    </button>;
-                // JSX ( JS + XML )                
+                return;
             }
         }
     </script>
     <script type="text/babel">
         ReactDOM.render
-        (<LikeButton />
+        (<GuGudan />
         , document.querySelector('#root'));
     </script>
 </body>
