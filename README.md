@@ -4,7 +4,7 @@
 
 <br>
 
-### 1-1 리액트를 왜 쓰는가
+### 리액트를 왜 쓰는가
 
 <br>
 리액트는 SPA(Single Page Application), 즉 앱같은 페이지를 웹에서도 구현하기 쉽게 하기 위해 사용한다. 또한 데이터와 화면을 자동으로 일치 시키는데도 유용하며, 중복되는 함수, 템플릿 등 중복 요소들을 컴포넌트화 해서 컨텐츠만 변경시키며 중복을 최소화 시킬 수 있다.
@@ -15,7 +15,7 @@
 3. 데이터 화면 일치
    <br><br>
 
-### 1-2 첫 리액트 컴포넌트
+### 첫 리액트 컴포넌트
 
 <br>
 
@@ -83,7 +83,7 @@
 
 <br>
 
-### 1-3 HTML 속성과 상태(state)
+### HTML 속성과 상태(state)
 
 <br>
 리액트에서 Component는 기본적으로 Root가 필요하다. 또한, 컴포넌트에서 바뀔 여지가 있는 부분을 상태, 즉 State라고 한다. 예를 들어, 사전에 만들어진 Like 버튼을 클릭했을 때 버튼의 텍스트가 Liked로 바뀐다면 이 텍스트가 State라고 할 수 있다. 
@@ -119,7 +119,7 @@ return e(
 여기서 리액트의 속성은 camel case로 작성해 준다. (onclick -> onClick)
 <br><br>
 
-### 1-4 JSX와 바벨(babel)
+### JSX와 바벨(babel)
 
 <br>
 리액트 개발자들은 좋지 않은 가독성 때문에 Tag를 사용해 더 가독성이 좋은 코드로 발전시켰다. 
@@ -158,3 +158,26 @@ ReactDOM.render(<LikeButton />, document.querySelector("#root"));
 ```
 
 <br> 이런식으로 보다 간편하고 가독성이 좋은 코드를 작성할 수 있다.
+<br><br>
+
+### Fragment와 기타 팁들
+
+<br>
+
+이전에는 리액트를 사용할 때 반드시 컴포넌트를 `<div>`태그로 감싸주어야 해서 CSS를 적용하거나 할때 불편한 점이 많았는데, 지금은 이것이 개선이 되었다. 바로 빈 태그인 `<>`나 `<React.Fragment>`, 즉 Fragment를 사용하는 것이다. 이렇게 하면 불필요한 div 태그는 사라지고 필요한 div 태그만 사용할 수 있다. <br><br>
+
+```js
+            return (
+                    <>
+                        <div>{this.state.first} 곱하기 {this.state.second}는?</div>
+                        <form onSubmit={this.onSubmit}>
+                            <input type="number" value={this.state.value}
+                            onChange={this.onChange} />
+                            <button>입력!</button>
+                        </form>
+                        <div>{this.state.result}</div>
+                    </>
+                );
+            }
+        }
+```
