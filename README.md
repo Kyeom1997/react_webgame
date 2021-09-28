@@ -181,3 +181,57 @@ ReactDOM.render(<LikeButton />, document.querySelector("#root"));
             }
         }
 ```
+
+<br>
+
+여기서 return 값을 감싸주는 `()`는, 그룹 연산자이다. 우선 순위를 둘 때를 제외하고는 보기 좋게 하는 용도로 사용되는, 큰 의미가 없는 연산자이다. 또한, onChange나 onSubmit 함수를 class 함수의 하위 함수로 빼낼 경우에는 function 태그를 사용할 경우 this의 값이 달라질 수 있기 때문에 무조건 화살표 함수로 구현해야 한다.
+<br><br>
+
+```js
+onSubmit = (e) => {
+  e.preventDefault();
+  if (parseInt(this.state.value) === this.state.first * this.state.second) {
+    this.setState({
+      result: this.state.first * this.state.second + " 정답!",
+      first: Math.ceil(Math.random() * 9),
+      second: Math.ceil(Math.random() * 9),
+      value: "",
+    });
+  } else {
+    this.setState({
+      result: "땡",
+      value: "",
+    });
+  }
+};
+
+onChange = (e) => this.setState({ value: e.target.value });
+```
+
+<br>
+
+### 함수형 setState
+
+<br>
+
+setState 안에 `this.state.(...)` 값이 들어간다면 함수형 setState를 사용하는 것이 좋다. 이를 사용하면 prevState, 이전 상태값을 다음 상태값에 활용할 수 있게 된다. 만일 Counter 예제를 예로 든다면, this.setState를 객체로 3번 반복하게 된다면 비동기이기 때문에 value 값이 3 증가하는 것이 아니라, 1이 증가하게 될 수 있다.
+<br><br>
+
+```js
+this.setState({
+  value: this.state.value + 1,
+});
+this.setState({
+  value: this.state.value + 1,
+});
+this.setState({
+  value: this.state.value + 1,
+});
+// value 값이 1 증가할 수 있음
+
+this.setState((prevState) => {
+  return {
+    value: prevState.value + 1,
+  };
+});
+```
