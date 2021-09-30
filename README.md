@@ -235,3 +235,52 @@ this.setState((prevState) => {
   };
 });
 ```
+
+<br>
+
+---
+
+<br>
+
+## 2장. 끝말잇기
+
+<br>
+
+### React Hooks 사용하기
+
+<br>
+리액트 사용자들은 함수형 컴포넌트에서도 useState, Ref와 같은 기능들을 사용하기를 원했다. React 개발진들은 그 요구를 사용하였고 그렇게 해서 나오게 된 것이 React Hooks이다. React Hooks에서 state를 설정하려면 다음과 같이 하면된다.
+<br><br>
+
+```js
+const Gugudan = () => {
+    const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+    const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+    const [value, setValue] = React.useState('');
+    const [result, setResult] = React.useState('');
+```
+
+<br>
+Hooks에서는 state를 하나씩 분리해 주고, setState 역시 해당 분리된 state의 전용 setState로 하나씩 분리해 준다. 그리고 React.useState의 ()값에 해당 State의 초깃값을 넣어주게 된다. onChange와 onSubmit 역시 useState에서 setState 값으로 변경해 준다.
+<br><br>
+
+```js
+const onChangeInput = (e) => {
+  setValue(e.target.value);
+};
+
+const onSubmitForm = (e) => {
+  e.preventDefault();
+  if (parseInt(value) === first * second) {
+    setResult("정답:" + value);
+    setFirst(Math.ceil(Math.random() * 9));
+    setSecond(Math.ceil(Math.random() * 9));
+    setValue("");
+    inputRef.current.focus();
+  } else {
+    setResult("땡");
+    setValue("");
+    inputRef.current.focus();
+  }
+};
+```
