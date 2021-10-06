@@ -1,6 +1,6 @@
 const React = require('react');
 const { Module } = require('webpack');
-const {comonent} = React;
+const {component} = React;
 
 class WordRelay extends React.Component {
     state = {

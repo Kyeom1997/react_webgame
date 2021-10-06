@@ -1,31 +1,42 @@
 const path = require("path");
 
 module.exports = {
-  name: "wordrelay-setting",
-  mode: "development", //실서비스 : production
-  devtool: "eval", //빠르게
+  mode: "development",
+  devtool: "eval", //hidden-source-map
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".jsx", ".js"],
   },
-
   entry: {
-    app: ["./client"],
-  }, //입력
+    app: "./client",
+  },
 
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         loader: "babel-loader",
         options: {
-          presets: ["@babel/preset-env", "@babel/preset-react"],
+          presets: [
+            [
+              "@babel/preset-env",
+              {
+                targets: {
+                  browsers: ["> 5% in KR", "last 2 chrome versions"],
+                },
+                debug: true,
+              },
+            ],
+            "@babel/preset-react",
+          ],
+          plugins: [],
         },
       },
     ],
   },
+  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
 
   output: {
-    path: path.join(__dirname, "dist"),
     filename: "app.js",
-  }, //출력
+    path: path.join(__dirname, "abc", "/app", "dist"),
+  },
 };
