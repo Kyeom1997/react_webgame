@@ -1,15 +1,16 @@
 const path = require("path");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
+  name: "word-relay-dev",
   mode: "development",
-  devtool: "eval", //hidden-source-map
+  devtool: "inline-source-map",
   resolve: {
-    extensions: [".jsx", ".js"],
+    extensions: [".js", ".jsx"],
   },
   entry: {
     app: "./client",
   },
-
   module: {
     rules: [
       {
@@ -20,23 +21,27 @@ module.exports = {
             [
               "@babel/preset-env",
               {
-                targets: {
-                  browsers: ["> 5% in KR", "last 2 chrome versions"],
-                },
+                targets: { browsers: ["last 2 chrome versions"] },
                 debug: true,
               },
             ],
             "@babel/preset-react",
           ],
-          plugins: [],
+          plugins: ["react-refresh/babel"],
         },
+        exclude: path.join(__dirname, "node_modules"),
       },
     ],
   },
-  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
-
+  plugins: [new ReactRefreshWebpackPlugin()],
   output: {
-    filename: "app.js",
-    path: path.join(__dirname, "abc", "/app", "dist"),
+    path: path.join(__dirname, "dist"),
+    filename: "[name].js",
+    publicPath: "/dist",
+  },
+  devServer: {
+    devMiddleware: { publicPath: "/dist" },
+    static: { directory: path.resolve(__dirname) },
+    hot: true,
   },
 };

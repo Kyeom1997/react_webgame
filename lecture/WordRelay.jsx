@@ -1,10 +1,10 @@
 const React = require('react');
-const { Module } = require('webpack');
-const {component} = React;
+const { module } = require('webpack');
+const { Component } = React;
 
-class WordRelay extends React.Component {
+class WordRelay extends Component {
     state = {
-
+        text: 'Hello, webpack'
     };
 
     render() {
