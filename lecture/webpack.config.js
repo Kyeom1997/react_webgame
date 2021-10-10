@@ -1,4 +1,5 @@
 const path = require("path");
+const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
   name: "wordrelay-setting",
@@ -18,7 +19,17 @@ module.exports = {
         test: /\.jsx?/,
         loader: "babel-loader",
         options: {
-          presets: ["@babel/preset-env", "@babel/preset-react"],
+          presets: [
+            [
+              "@babel/preset-env",
+              {
+                targets: { browsers: ["last 2 chrome versions"] },
+                debug: true,
+              },
+            ],
+            "@babel/preset-react",
+          ],
+          plugins: ["react-refresh/babel"],
         },
       },
     ],
