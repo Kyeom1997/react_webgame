@@ -29,14 +29,22 @@ module.exports = {
             ],
             "@babel/preset-react",
           ],
-          plugins: ["react-refresh/babel"],
+          plugins: [
+            "@babel/plugin-proposal-class-properties",
+            "react-refresh/babel",
+          ],
         },
       },
     ],
   },
+  plugins: [new RefreshWebpackPlugin()],
 
   output: {
     path: path.join(__dirname, "dist"),
     filename: "app.js",
   }, //출력
+  devServer: {
+    publicPath: "/dist/",
+    hot: true,
+  },
 };
