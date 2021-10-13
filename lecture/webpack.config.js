@@ -1,22 +1,20 @@
 const path = require("path");
-const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
-  name: "wordrelay-setting",
-  mode: "development", //실서비스: production
-  devtool: "eval", //빠르게
+  name: "word-relay-dev",
+  mode: "development",
+  devtool: "inline-source-map",
   resolve: {
     extensions: [".js", ".jsx"],
   },
-
   entry: {
-    app: ["./client"],
-  }, //입력
-
+    app: "./client",
+  },
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         loader: "babel-loader",
         options: {
           presets: [
@@ -29,22 +27,21 @@ module.exports = {
             ],
             "@babel/preset-react",
           ],
-          plugins: [
-            "@babel/plugin-proposal-class-properties",
-            "react-refresh/babel",
-          ],
+          plugins: ["react-refresh/babel"],
         },
+        exclude: path.join(__dirname, "node_modules"),
       },
     ],
   },
-  plugins: [new RefreshWebpackPlugin()],
-
+  plugins: [new ReactRefreshWebpackPlugin()],
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "app.js",
-  }, //출력
+    filename: "[name].js",
+    publicPath: "/dist",
+  },
   devServer: {
-    publicPath: "/dist/",
+    devMiddleware: { publicPath: "/dist" },
+    static: { directory: path.resolve(__dirname) },
     hot: true,
   },
 };
