@@ -39,7 +39,7 @@ class NumberBaseball extends Component {
                     {fruit: '자몽', taste: '쓰다'},
                     ].map((v) => {
                         return(
-                            <li><b>{v.fruit}</b> -{v.taste}</li>
+                            <li key={v.fruit + v.taste}><b>{v.fruit}</b> -{v.taste}</li>
                         );
                     })}
                 </ul>
