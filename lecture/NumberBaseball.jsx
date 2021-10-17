@@ -24,8 +24,13 @@ class NumberBaseball extends Component {
             this.setState({
                 result: '홈런!',
                 tries: [...this.state.tries, { try: this.state.value, result: '홈런!' }],
-
             })
+            alert('게임을 다시 시작합니다!');
+            this.setState({
+                value: '',
+                answer: getNumbers(),
+                tries: [],
+            });
         } else {
             const answerArray = this.state.value.split('').map((v) => parseInt(v));
             let strike = 0;
@@ -51,7 +56,7 @@ class NumberBaseball extends Component {
                 this.setState({
                     tries: [...this.state.tries, { try: this.state.value, result: `${strike} 스트라이크, ${ball} 볼입니다.`}],
                     value: '',
-                })
+                });
             }
         }
     };
