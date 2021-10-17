@@ -13,11 +13,11 @@ class NumberBaseball extends Component {
         tries: [],
     };
 
-    onSubmitForm = () => {
-
+    onSubmitForm = (e) => {
+        e.preventDefault();
     };
 
-    onChangeInput = () => {
+    onChangeInput = (e) => {
         this.setState({
             value: e.target.value,
         })
