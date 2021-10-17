@@ -18,7 +18,9 @@ class NumberBaseball extends Component {
     };
 
     onChangeInput = () => {
-
+        this.setState({
+            value: e.target.value,
+        })
     };
 
     fruits = [
