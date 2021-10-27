@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 // 클래스의 경우 -> constructor -> render -> ref -> componentDidMount 
-// (setState/props 바뀔때 -> shouldComponentUpdate(true) -> render -> componentDidUpdate)
+// -> (setState/props 바뀔때 -> shouldComponentUpdate(true) -> render -> componentDidUpdate)
 // 부모가 나를 없앴을 때 -> componentWillUnmount -> 소멸
+
+const rspCoords = {
+    바위: '0',
+    가위: '-142px',
+    보: '-284px',
+};
+
+const scores = {
+    가위: 1,
+    바위: 0,
+    보: -1,
+}
 
 class RSP extends Component {
     state = {
@@ -10,8 +22,25 @@ class RSP extends Component {
         score: 0,
     };
 
-    componentDidMount() { //컴포넌트가 첫 렌더링된 후
+    interval;
 
+    componentDidMount() { //컴포넌트가 첫 렌더링된 후
+        const {imgCoord} = this.state;
+        this.interval = setInterval(() => {
+            if(imgCoord === rspCoords.바위) {
+                this.setState({
+                    imgCoord: rspCoords.가위,
+                });
+            } else if(imgCoord = rspCoords.가위) {
+                this.setState({
+                    imgCoord: rspCoords.보,
+                });
+            } else if(imgCoord = rspCoords.보) {
+                this.setState({
+                    imgCoord: rspCoords.바위
+                });
+            }
+        }, 1000);
     }
 
     componentDidUpdate() {//리렌더링 후
@@ -19,7 +48,7 @@ class RSP extends Component {
     }
 
     componentWillUnmount() { //컴포넌트가 제거되기 직전
-
+        clearInterval(this.interval);
     }
 
     render() {
