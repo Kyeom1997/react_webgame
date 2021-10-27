@@ -13,7 +13,13 @@ const scores = {
     가위: 1,
     바위: 0,
     보: -1,
-}
+};
+
+const computerChoice = (imgCoord) => {
+    return Object.entries(rspCoords).find(function(v) {
+        return v[1] === imgCoord
+    })[0];
+};
 
 class RSP extends Component {
     state = {
@@ -25,22 +31,7 @@ class RSP extends Component {
     interval;
 
     componentDidMount() { //컴포넌트가 첫 렌더링된 후
-        this.interval = setInterval(() => {
-            const {imgCoord} = this.state;
-            if(imgCoord === rspCoords.바위) {
-                this.setState({
-                    imgCoord: rspCoords.가위,
-                });
-            } else if(imgCoord === rspCoords.가위) {
-                this.setState({
-                    imgCoord: rspCoords.보,
-                });
-            } else if(imgCoord === rspCoords.보) {
-                this.setState({
-                    imgCoord: rspCoords.바위
-                });
-            }
-        }, 1000);
+        this.interval = setInterval(this.changeHand, 10);
     }
 
     componentDidUpdate() {//리렌더링 후
@@ -51,8 +42,51 @@ class RSP extends Component {
         clearInterval(this.interval);
     }
 
-    onClickBtn = (choice) => {
+    changeHand = () => {
+        const {imgCoord} = this.state;
+        if(imgCoord === rspCoords.바위) {
+            this.setState({
+                imgCoord: rspCoords.가위,
+            });
+        } else if(imgCoord === rspCoords.가위) {
+            this.setState({
+                imgCoord: rspCoords.보,
+            });
+        } else if(imgCoord === rspCoords.보) {
+            this.setState({
+                imgCoord: rspCoords.바위
+            });
+        }
+    };
 
+    onClickBtn = (choice) => {
+        const {imgCoord} = this.state;
+        clearInterval(this.interval);
+        const myScore = scores[choice];
+        const cpuScore = scores[computerChoice(imgCoord)];
+        const diff = myScore - cpuScore;
+        if (diff === 0) {
+            this.setState({
+                result: '비겼습니다!',
+            });
+        } else if ([-1, 2].includes(diff)) {
+            this.setState((prevState) => {
+                return {
+                    result: '이겼습니다!',
+                    score: prevState.score + 1,
+            };
+        });
+        } else {
+            this.setState((prevState) => {
+                return {
+                    result: '졌습니다!',
+                    score: prevState.score - 1,
+                };
+            });
+        }
+        setTimeout(() => {
+            this.interval = setInterval(this.changeHand, 10);
+        }, 1500);
     };
 
 
