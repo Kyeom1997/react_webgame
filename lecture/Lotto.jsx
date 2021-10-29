@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Ball from './Ball';
 
-getWinNumbers = () => {
+function getwinNumbers() {
     console.log('getWinNumbers');
     const candidate = Array(45).fill().map((v,i) => i + 1);
     const shuffle = [];
