@@ -48,6 +48,16 @@ class Lotto extends Component {
         })
     }
 
+    onClickRedo = () => {
+        this.setState({
+            winNumbers: getWinNumbers(), 
+            winBalls: [],
+            bonus: null, 
+            redo: false,
+        });
+        this.timeouts = [];
+    };
+
     render() {
         const { winBalls, bonus, redo } = this.state;
         return (
