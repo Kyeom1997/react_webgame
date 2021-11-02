@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import Ball from './Ball';
 
 function getWinNumbers() {
@@ -14,13 +14,15 @@ function getWinNumbers() {
 }
 
 const Lotto = () => {
-    const [winNumbers, setWinNumbers] = useState(getWinNumbers());
+    const lottoNumbers = useMemo(() => getWinNumbers(), []);
+    const [winNumbers, setWinNumbers] = useState(lottoNumbers);
     const [winBalls, setWinBalls] = useState([]);
     const [bonus, setBonus] = useState(null);
     const [redo, setRedo] = useState(false);
     const timeouts = useRef([]);
 
     useEffect(() => {
+        console.log('useEffect');
         for (let i = 0;  i < winNumbers.length - 1; i++) {
             timeouts.current[i] = setTimeout(() => {
                 setWinBalls((prevBalls) => [...prevBalls, winNumbers[i]]);
@@ -38,13 +40,15 @@ const Lotto = () => {
     }, [timeouts.current]); // input이 빈 배열이면 componentDidMount와 동일
     // 배열에 요소가 있으면 componentDidMount와 componentDidUpdate 둘 다 수행
 
-    const onClickRedo = () => {
+    const onClickRedo = useCallback(() => {
+        console.log('useCallback');
+        console.log(winNumbers);
         setWinNumbers(getWinNumbers());
         setWinBalls([]);
         setBonus(null);
         setRedo(false);
         timeouts.current = [];
-    };
+    }, [winNumbers]);
 
     return (
         <>
