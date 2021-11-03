@@ -2,7 +2,7 @@ const path = require("path");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
-  name: "word-relay-dev",
+  name: "tictactoe-dev",
   mode: "development",
   devtool: "inline-source-map",
   resolve: {
