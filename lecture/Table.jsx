@@ -2,12 +2,11 @@ import React from 'react';
 import Tr from './Tr';
 
 const Table = ({ onClick, tableData }) => {
-    return (
-        <table onClick = {onClick}>
-            {Array(tableData.length).fill().map((tr, i) => (
-          <Tr key={i} dispatch={dispatch} rowIndex={i} rowData={tableData[i]} />
-        ))}
-        </table>)
+  return (
+    <table onClick={onClick}>
+      {Array(tableData.length).fill().map((tr, i) => (<Tr rowData={tableData[i]} />))}
+    </table>
+  );
 };
 
 export default Table;
