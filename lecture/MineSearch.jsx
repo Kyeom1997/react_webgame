@@ -3,6 +3,8 @@ import Table from './Table';
 
 const initialState = {
     tableData: [],
+    timer: 0,
+    result: '',
 };
 
 const reducer = (state, action) => {
@@ -16,7 +18,12 @@ const MineSearch = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
-        <Table />
+        <>
+            <Form />
+            <div>{state.timer}</div>
+            <Table />
+            <div>{state.result}</div>
+        </>
     );
 };
 
