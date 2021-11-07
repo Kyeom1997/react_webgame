@@ -3,9 +3,9 @@ import Table from './Table';
 import Form from './Form';
 
 export const CODE = {
-    MINE = -7,
-    NORMAL = -1,
-    QUESTION = -2,
+    MINE : -7,
+    NORMAL : -1,
+    QUESTION : -2,
     FLAG: -3,
     QUESTION_MINE: -4,
     FLAG_MINE: -5,
@@ -55,6 +55,7 @@ const plantMine = (row, cell, mine) => {
         data[ver][hor] = CODE.MINE;
     }
 
+    console.log(data);
     return data;
 };
 
