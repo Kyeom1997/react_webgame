@@ -75,24 +75,32 @@ const reducer = (state, action) => {
         case OPEN_CELL: {
             const tableData =  [...state.tableData];
             tableData[action.row] = [...state.tableData[action.row]];
-            tableData[action.row][action.cell] = CODE.OPENED;
-            let around = [
-                tableData[row][cell - 1], tableData[row][cell + 1],
-            ];
-            if (tableData[row - 1]) {
-                around = around.concat([tableData[row - 1][cell - 1], tableData[row - 1][cell], tableData[row - 1][cell + 1]]);
+            let around = [];
+            if (tableData[action.row - 1]) {
+                around = around.concat(
+                    tableData[action.row - 1][action.cell - 1],
+                    tableData[action.row - 1][action.cell],
+                    tableData[action.row - 1][action.cell + 1],
+                );
             }
-            if (tableData[row + 1]) {
-                around = around.concat([tableData[row + 1][cell - 1], tableData[row + 1][cell], tableData[row + 1][cell + 1]]);
+            around = around.concat(
+                tableData[action.row][action.cell - 1],
+                tableData[action.row][action.cell + 1],
+            );
+            if (tableData[action.row + 1]) {
+                around = around.concat(
+                    tableData[action.row + 1][action.cell - 1],
+                    tableData[action.row + 1][action.cell],
+                    tableData[action.row + 1][action.cell + 1],
+                );
             }
-            const count = around.filter(function (v) {
-                return [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v);
-            }).length;
+            const count = around.filter((v) => [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v)).length;
+            tableData[action.row][action.cell] = count;
             return {
                 ...state,
                 tableData,
             };
-        };
+        }; 
         case CLICK_MINE: {
             const tableData =  [...state.tableData];
             tableData[action.row] = [...state.tableData[action.row]];
